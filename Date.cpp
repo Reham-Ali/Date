@@ -50,6 +50,20 @@ bool Date::isLeapYear() const
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
+int Date::compareTo(const Date& other) const 
+{
+    if (year > other.year) return 1;
+    else if (year < other.year) return -1;
+    else {
+        if (month > other.month) return 1;
+        else if (month < other.month) return -1;
+        else {
+            if (day > other.day) return 1;
+            else if (day < other.day) return -1;
+            else return 0;
+        }
+    }
+}
 
 Date::Date() : day(1), month(1), year(1500) {}
 
