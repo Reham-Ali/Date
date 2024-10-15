@@ -202,6 +202,16 @@ string Date::getDayOfWeek() const
     int dayOfWeek = (day + (13 * (m + 1)) / 5 + K + K / 4 + J / 4 - 2 * J) % 7;
     return dayNames[dayOfWeek];
 }
+bool Date::isBefore(const Date& other) const {
+    if (year < other.year) return true;
+    if (year == other.year && month < other.month) return true;
+    if (year == other.year && month == other.month && day < other.day) return true;
+    return false;
+}
+
+bool Date::isAfter(const Date& other) const {
+    return !isBefore(other) && !(day == other.day && month == other.month && year == other.year);
+}
 
 
 int main() 
