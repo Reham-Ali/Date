@@ -189,6 +189,19 @@ string Date::getDateInFormat3() const
                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
     return to_string(day) + "-" + months[month] + "-" + to_string(year);
 }
+string Date::getDayOfWeek() const
+{
+    static const string dayNames[] = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    int m = month, y = year;
+    if (m < 3) {
+        m += 12;
+        y--;
+    }
+    int K = y % 100;
+    int J = y / 100;
+    int dayOfWeek = (day + (13 * (m + 1)) / 5 + K + K / 4 + J / 4 - 2 * J) % 7;
+    return dayNames[dayOfWeek];
+}
 
 
 int main() 
