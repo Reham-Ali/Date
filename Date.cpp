@@ -209,10 +209,33 @@ bool Date::isBefore(const Date& other) const {
     return false;
 }
 
-bool Date::isAfter(const Date& other) const {
+bool Date::isAfter(const Date& other) const 
+{
     return !isBefore(other) && !(day == other.day && month == other.month && year == other.year);
 }
+int Date::daysBetween(const Date& other) const {
+    // Calculate total days in the current year up to this date
+    int days = day;
+    for (int i = 1; i < month; i++) {
+        days += daysInMonth[i];
+    }
+    if (isLeapYear() && month > 2) {
+        days++;
+    }
 
+    // Repeat for the other date
+    int otherDays = other.day;
+    for (int i = 1; i < other.month; i++) {
+        otherDays += daysInMonth[i];
+    }
+    if (other.isLeapYear() && other.month > 2) {
+        otherDays++;
+    }
+
+    // Return the difference in days
+    int yearDifference = (year - other.year) * 365;
+    return abs((days + yearDifference) - otherDays);
+}
 
 int main() 
 {
